@@ -3,6 +3,7 @@ package com.example.gomesrodris.archburgers.adapters.controllers;
 import com.example.gomesrodris.archburgers.adapters.dto.GenericOperationResponse;
 import com.example.gomesrodris.archburgers.adapters.dto.ItemCardapioDto;
 import com.example.gomesrodris.archburgers.adapters.presenters.ItemCardapioPresenter;
+import com.example.gomesrodris.archburgers.apiutils.Preconditions;
 import com.example.gomesrodris.archburgers.apiutils.WebUtils;
 import com.example.gomesrodris.archburgers.controller.CardapioController;
 import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
@@ -53,11 +54,9 @@ public class CardapioApiHandler {
     @PostMapping("/cardapio")
     public ResponseEntity<ItemCardapioDto> salvarNovoItem(@RequestBody ItemCardapioDto itemCardapioDto) {
         try {
-            if (itemCardapioDto == null)
-                throw new IllegalArgumentException("Missing request body");
+            Preconditions.checkArgument(itemCardapioDto != null, "Missing request body");
             ItemCardapio item = itemCardapioDto.toEntity();
-            if (item.id() != null)
-                throw new IllegalArgumentException("Novo objeto não pode ter um ID");
+            Preconditions.checkArgument(item.id() == null, "Novo objeto não pode ter um ID");
 
             var saved = cardapioController.salvarItemCardapio(item);
             return WebUtils.okResponse(ItemCardapioPresenter.entityToPresentationDto(saved));
@@ -74,10 +73,8 @@ public class CardapioApiHandler {
     public ResponseEntity<ItemCardapioDto> atualizarItem(@RequestBody ItemCardapioDto itemCardapioDto,
                                                          @PathVariable("idItemCardapio") Integer idItemCardapio) {
         try {
-            if (idItemCardapio == null)
-                throw new IllegalArgumentException("Missing idItemCardapio path param");
-            if (itemCardapioDto == null)
-                throw new IllegalArgumentException("Missing request body");
+            Preconditions.checkArgument(idItemCardapio != null, "Missing idItemCardapio path param");
+            Preconditions.checkArgument(itemCardapioDto != null, "Missing request body");
 
             ItemCardapio item = itemCardapioDto.toEntity().withId(idItemCardapio);
 
@@ -93,10 +90,9 @@ public class CardapioApiHandler {
 
     @Operation(summary = "Exclui um item do cardápio")
     @DeleteMapping("/cardapio/{idItemCardapio}")
-    public ResponseEntity<GenericOperationResponse> atualizarItem(@PathVariable("idItemCardapio") Integer idItemCardapio) {
+    public ResponseEntity<GenericOperationResponse> excluirItem(@PathVariable("idItemCardapio") Integer idItemCardapio) {
         try {
-            if (idItemCardapio == null)
-                throw new IllegalArgumentException("Missing idItemCardapio path param");
+            Preconditions.checkArgument(idItemCardapio != null, "Missing idItemCardapio path param");
 
             cardapioController.excluirItemCardapio(idItemCardapio);
             return WebUtils.okResponse(new GenericOperationResponse(true));

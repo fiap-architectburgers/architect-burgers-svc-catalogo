@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
 
+        <deps.spring.version>6.1.5</deps.spring.version>
         <deps.spring.boot.version>3.2.4</deps.spring.boot.version>
     </properties>
 
@@ -68,12 +69,12 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
-                <version>6.1.5</version>
+                <version>${deps.spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>6.1.5</version>
+                <version>${deps.spring.version}</version>
             </dependency>
 
             <dependency>
@@ -85,6 +86,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${deps.spring.boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${deps.spring.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -119,6 +127,58 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.12</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-prepare-agent-integration</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report-integration</id>
+                        <goals>
+                            <goal>report-integration</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+<!--                                <rule>-->
+<!--                                    <element>BUNDLE</element>-->
+<!--                                    <limits>-->
+<!--                                        <limit>-->
+<!--                                            <counter>COMPLEXITY</counter>-->
+<!--                                            <value>COVEREDRATIO</value>-->
+<!--                                            <minimum>0.60</minimum>-->
+<!--                                        </limit>-->
+<!--                                    </limits>-->
+<!--                                </rule>-->
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

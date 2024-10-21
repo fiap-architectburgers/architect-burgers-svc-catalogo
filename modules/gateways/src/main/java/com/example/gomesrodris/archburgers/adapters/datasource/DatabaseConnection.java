@@ -12,14 +12,11 @@ import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.function.Supplier;
 
 @Component
 @Scope("singleton")
-public class DatabaseConnection implements TransactionManager, AutoCloseable {
+public class DatabaseConnection implements AutoCloseable {
     private final ComboPooledDataSource cpds;
-
-    private final ThreadLocal<ConnectionInstance> inTransactionConnection = new ThreadLocal<>();
 
     public DatabaseConnection(String driverClass, String dbUrl, String dbUser, String dbPass) {
         cpds = buildDataSource(driverClass, dbUrl, dbUser, dbPass);
@@ -48,36 +45,7 @@ public class DatabaseConnection implements TransactionManager, AutoCloseable {
         cpds = buildDataSource(driverClassEnv, dbUrlEnv, dbUserEnv, dbPassEnv);
     }
 
-    @Override
-    public <T> T runInTransaction(Supplier<T> task) throws Exception {
-        Connection conn = cpds.getConnection();
-        try {
-            conn.setAutoCommit(false);
-            inTransactionConnection.set(new ConnectionInstance(conn));
-
-            T result = task.get();
-            conn.commit();
-
-            return result;
-        } catch (Throwable t) {
-            conn.rollback();
-            throw t;
-        } finally {
-            inTransactionConnection.remove();
-            conn.close();
-        }
-    }
-
-    public boolean isInTransaction() {
-        return inTransactionConnection.get() != null;
-    }
-
     public ConnectionInstance getConnection() {
-        var transactionConnection = inTransactionConnection.get();
-        if (transactionConnection != null) {
-            return transactionConnection;
-        }
-
         try {
             return new ConnectionInstance(cpds.getConnection());
         } catch (SQLException e) {
@@ -115,7 +83,7 @@ public class DatabaseConnection implements TransactionManager, AutoCloseable {
         cpds.close();
     }
 
-    public class ConnectionInstance implements AutoCloseable {
+    public static class ConnectionInstance implements AutoCloseable {
         private final Connection conn;
 
         public ConnectionInstance(Connection conn) {
@@ -128,13 +96,10 @@ public class DatabaseConnection implements TransactionManager, AutoCloseable {
 
         @Override
         public void close() {
-            // Se está em transação ignorar, será fechada no final
-            if (!isInTransaction()) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException("Error closing the connection: " + e, e);
-                }
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException("Error closing the connection: " + e, e);
             }
         }
 
