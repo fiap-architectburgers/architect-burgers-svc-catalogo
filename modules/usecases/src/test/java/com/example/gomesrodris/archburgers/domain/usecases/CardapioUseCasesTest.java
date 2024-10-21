@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CardapioUseCasesTest {
@@ -33,9 +33,9 @@ class CardapioUseCasesTest {
                 new ItemCardapio(1, TipoItemCardapio.LANCHE, "Hamburger Vegetariano",
                         "Hamburger de ervilha com queijo prato",
                         new ValorMonetario("20.00")),
-                new ItemCardapio(2, TipoItemCardapio.LANCHE, "Veggie Cheddar",
-                        "Hamburger do Futuro com cebolas caramelizadas e cheddar vegano",
-                        new ValorMonetario("25.00"))
+                new ItemCardapio(2, TipoItemCardapio.ACOMPANHAMENTO, "Batata frita M",
+                        "Batata frita tamanho médio",
+                        new ValorMonetario("12.00"))
         ));
 
         var result = cardapioUseCases.listarItensCardapio(null);
@@ -44,9 +44,67 @@ class CardapioUseCasesTest {
                 new ItemCardapio(1, TipoItemCardapio.LANCHE, "Hamburger Vegetariano",
                         "Hamburger de ervilha com queijo prato",
                         new ValorMonetario("20.00")),
-                new ItemCardapio(2, TipoItemCardapio.LANCHE, "Veggie Cheddar",
-                        "Hamburger do Futuro com cebolas caramelizadas e cheddar vegano",
-                        new ValorMonetario("25.00"))
+                new ItemCardapio(2, TipoItemCardapio.ACOMPANHAMENTO, "Batata frita M",
+                        "Batata frita tamanho médio",
+                        new ValorMonetario("12.00"))
         );
+    }
+
+    @Test
+    void listLanches_porTipo() {
+        when(itemCardapioGateway.findByTipo(TipoItemCardapio.LANCHE)).thenReturn(List.of(
+                new ItemCardapio(1, TipoItemCardapio.LANCHE, "Hamburger Vegetariano",
+                        "Hamburger de ervilha com queijo prato",
+                        new ValorMonetario("20.00"))
+        ));
+
+        var result = cardapioUseCases.listarItensCardapio(TipoItemCardapio.LANCHE);
+
+        assertThat(result).containsExactly(
+                new ItemCardapio(1, TipoItemCardapio.LANCHE, "Hamburger Vegetariano",
+                        "Hamburger de ervilha com queijo prato",
+                        new ValorMonetario("20.00"))
+        );
+    }
+
+    @Test
+    void salvarItemCardapio_newItem() {
+        var newItem = new ItemCardapio(null, TipoItemCardapio.BEBIDA, "Coca-Cola",
+                "Refrigerante Coca-Cola 350ml",
+                new ValorMonetario("5.00"));
+
+        var savedItem = new ItemCardapio(3, TipoItemCardapio.BEBIDA, "Coca-Cola",
+                "Refrigerante Coca-Cola 350ml",
+                new ValorMonetario("5.00"));
+
+        when(itemCardapioGateway.salvarNovo(newItem)).thenReturn(savedItem);
+
+        var result = cardapioUseCases.salvarItemCardapio(newItem);
+
+        assertThat(result).isEqualTo(savedItem);
+    }
+
+    @Test
+    void salvarItemCardapio_existingItem() {
+        var existingItem = new ItemCardapio(1, TipoItemCardapio.BEBIDA, "Coca-Cola",
+                "Refrigerante Coca-Cola 350ml",
+                new ValorMonetario("5.00"));
+
+        doNothing().when(itemCardapioGateway).atualizar(existingItem);
+
+        var result = cardapioUseCases.salvarItemCardapio(existingItem);
+
+        assertThat(result).isEqualTo(existingItem);
+    }
+
+    @Test
+    void excluirItemCardapio() {
+        int idItemCardapio = 1;
+
+        doNothing().when(itemCardapioGateway).excluir(idItemCardapio);
+
+        cardapioUseCases.excluirItemCardapio(idItemCardapio);
+
+        verify(itemCardapioGateway).excluir(idItemCardapio);
     }
 }
