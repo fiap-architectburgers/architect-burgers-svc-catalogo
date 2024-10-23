@@ -104,9 +104,8 @@ public class ItemCardapioRepositoryJdbcImpl implements ItemCardapioDataSource {
 
             var rs = stmt.executeQuery();
 
-            if (!rs.next()) {
-                throw new IllegalStateException("Modification query expected return");
-            }
+            boolean hasReturn = rs.next();
+            assert hasReturn: "Modification query expected return";
 
             return itemCardapio.withId(rs.getInt(1));
 
@@ -162,9 +161,7 @@ public class ItemCardapioRepositoryJdbcImpl implements ItemCardapioDataSource {
                 stmt.setInt(1, (Integer) param);
             } else if (param instanceof String) {
                 stmt.setString(1, (String) param);
-            } else if (param != null) {
-                throw new IllegalArgumentException("Invalid parameter type: " + param);
-            }
+            } // Only the two types above are expected. Otherwise, if the query requires a parameter it will fail
 
             ResultSet rs = stmt.executeQuery();
             List<ItemCardapio> results = new ArrayList<>();

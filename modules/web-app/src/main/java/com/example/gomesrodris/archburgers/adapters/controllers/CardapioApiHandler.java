@@ -55,6 +55,7 @@ public class CardapioApiHandler {
     public ResponseEntity<ItemCardapioDto> salvarNovoItem(@RequestBody ItemCardapioDto itemCardapioDto) {
         try {
             Preconditions.checkArgument(itemCardapioDto != null, "Missing request body");
+
             ItemCardapio item = itemCardapioDto.toEntity();
             Preconditions.checkArgument(item.id() == null, "Novo objeto não pode ter um ID");
 

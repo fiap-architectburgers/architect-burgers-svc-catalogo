@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 public class WebUtils {
+    private WebUtils() {
+    }
+
     public static <T> ResponseEntity<T> errorResponse(HttpStatus httpStatus, String detail) {
         return ResponseEntity.of(ProblemDetail.forStatusAndDetail(httpStatus, detail)).build();
     }

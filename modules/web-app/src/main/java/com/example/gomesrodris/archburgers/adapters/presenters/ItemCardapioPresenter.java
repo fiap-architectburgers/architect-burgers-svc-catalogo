@@ -5,6 +5,9 @@ import com.example.gomesrodris.archburgers.adapters.dto.ValorMonetarioDto;
 import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
 
 public class ItemCardapioPresenter {
+    private ItemCardapioPresenter() {
+    }
+
     public static ItemCardapioDto entityToPresentationDto(ItemCardapio itemCardapio) {
         return new ItemCardapioDto(
                 itemCardapio.id(),

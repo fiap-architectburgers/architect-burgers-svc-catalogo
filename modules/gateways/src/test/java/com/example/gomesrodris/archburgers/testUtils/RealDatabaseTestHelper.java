@@ -5,6 +5,8 @@ import com.example.gomesrodris.archburgers.tools.migration.DatabaseMigration;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import java.util.Map;
+
 public class RealDatabaseTestHelper {
     private PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:12-alpine"
@@ -13,8 +15,10 @@ public class RealDatabaseTestHelper {
     public void beforeAll() throws Exception {
         postgres.start();
 
-        new DatabaseMigration(postgres.getDriverClassName(),
-                postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword()).runMigrations();
+        try (DatabaseMigration migration = new DatabaseMigration(postgres.getDriverClassName(),
+                postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())) {
+            migration.runMigrations();
+        }
     }
 
     public void afterAll() {
@@ -22,8 +26,14 @@ public class RealDatabaseTestHelper {
     }
 
     public DatabaseConnection getConnectionPool() {
-        return new DatabaseConnection(postgres.getDriverClassName(),
-                postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
+        var env = new StaticEnvironment(Map.of(
+                "archburgers.datasource.driverClass", postgres.getDriverClassName(),
+                "archburgers.datasource.dbUrl", postgres.getJdbcUrl(),
+                "archburgers.datasource.dbUser", postgres.getUsername(),
+                "archburgers.datasource.dbPass", postgres.getPassword()
+        ));
+
+        return new DatabaseConnection(env);
     }
 
     @VisibleForTesting

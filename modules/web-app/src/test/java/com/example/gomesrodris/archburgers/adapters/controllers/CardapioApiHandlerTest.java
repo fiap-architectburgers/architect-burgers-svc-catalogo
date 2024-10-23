@@ -12,14 +12,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,9 +35,11 @@ class CardapioApiHandlerTest {
     @Mock
     private CardapioController cardapioController;
 
+    private CardapioApiHandler cardapioApiHandler;
+
     @BeforeEach
     void setUp() {
-        CardapioApiHandler cardapioApiHandler = new CardapioApiHandler(cardapioController);
+        cardapioApiHandler = new CardapioApiHandler(cardapioController);
         mockMvc = MockMvcBuilders.standaloneSetup(cardapioApiHandler).build();
     }
 
@@ -128,6 +134,21 @@ class CardapioApiHandlerTest {
     }
 
     @Test
+    void salvarNovoItem_internalError() throws Exception {
+        ItemCardapioDto newItemParam = new ItemCardapioDto(null, "LANCHE", "Hamburger",
+                "Hamburger com queijo", new ValorMonetarioDto("22.90", null));
+
+        when(cardapioController.salvarItemCardapio(any())).thenThrow(new RuntimeException("Something went wrong"));
+
+        mockMvc.perform(
+                        post("/cardapio")
+                                .content(new ObjectMapper().writeValueAsString(newItemParam))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
     void atualizarItem() throws Exception {
         ItemCardapioDto updatedItemParam = new ItemCardapioDto(null, "LANCHE", "Hamburger",
                 "Hamburger com queijo", new ValorMonetarioDto("22.90", null));
@@ -163,6 +184,36 @@ class CardapioApiHandlerTest {
     }
 
     @Test
+    void atualizarItem_badRequest_rejectedByUseCase() throws Exception {
+        ItemCardapioDto updatedItemParam = new ItemCardapioDto(null, "LANCHE", "Hamburger",
+                "Hamburger com queijo", new ValorMonetarioDto("22.90", null));
+
+        when(cardapioController.salvarItemCardapio(any())).thenThrow(new IllegalArgumentException("Something is invalid in your parameter"));
+
+        mockMvc.perform(
+                        put("/cardapio/{idItemCardapio}", 1)
+                                .content(new ObjectMapper().writeValueAsString(updatedItemParam))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void atualizarItem_internalError() throws Exception {
+        ItemCardapioDto updatedItemParam = new ItemCardapioDto(null, "LANCHE", "Hamburger",
+                "Hamburger com queijo", new ValorMonetarioDto("22.90", null));
+
+        when(cardapioController.salvarItemCardapio(any())).thenThrow(new RuntimeException("Something went wrong"));
+
+        mockMvc.perform(
+                        put("/cardapio/{idItemCardapio}", 1)
+                                .content(new ObjectMapper().writeValueAsString(updatedItemParam))
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
     void excluirItem() throws Exception {
         mockMvc.perform(
                         delete("/cardapio/{idItemCardapio}", 1)
@@ -173,5 +224,41 @@ class CardapioApiHandlerTest {
                 ));
 
         verify(cardapioController).excluirItemCardapio(1);
+    }
+
+    @Test
+    void excluirItem_badRequest_rejectedByUseCase() throws Exception {
+        doThrow(new IllegalArgumentException("Something is invalid in your parameter"))
+                .when(cardapioController).excluirItemCardapio(1);
+
+        mockMvc.perform(
+                        delete("/cardapio/{idItemCardapio}", 1)
+                )
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void excluirItem_internalError() throws Exception {
+        doThrow(new RuntimeException("Something went wrong"))
+                .when(cardapioController).excluirItemCardapio(1);
+
+        mockMvc.perform(
+                        delete("/cardapio/{idItemCardapio}", 1)
+                )
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    void impossiblePreconditions() {
+        /*
+        This test goes through the sanity-checks that are not possible to reach inside the MVC framework
+        (for example, variable paths or request body missing).
+        In practice the framework rejects those requests before invoking the controller method, but we
+        ensure in code anyway, and here we add them just for the sake of test coverage
+         */
+        assertThat(cardapioApiHandler.salvarNovoItem(null).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(cardapioApiHandler.atualizarItem(null, 1).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(cardapioApiHandler.atualizarItem(mock(), null).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(cardapioApiHandler.excluirItem(null).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }

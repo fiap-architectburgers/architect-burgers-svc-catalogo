@@ -30,16 +30,16 @@ public class DatabaseConnection implements AutoCloseable {
         String dbPassEnv = environment.getProperty("archburgers.datasource.dbPass");
 
         if (driverClassEnv == null) {
-            throw new IllegalStateException("driverClass env is missing");
+            throw new IllegalStateException("archburgers.datasource.driverClass env is missing");
         }
         if (dbUrlEnv == null) {
-            throw new IllegalStateException("dbUrl env is missing");
+            throw new IllegalStateException("archburgers.datasource.dbUrl env is missing");
         }
         if (dbUserEnv == null) {
-            throw new IllegalStateException("dbUser env is missing");
+            throw new IllegalStateException("archburgers.datasource.dbUser env is missing");
         }
         if (dbPassEnv == null) {
-            throw new IllegalStateException("dbPass env is missing");
+            throw new IllegalStateException("archburgers.datasource.dbPass env is missing");
         }
 
         cpds = buildDataSource(driverClassEnv, dbUrlEnv, dbUserEnv, dbPassEnv);
@@ -100,15 +100,6 @@ public class DatabaseConnection implements AutoCloseable {
                 conn.close();
             } catch (SQLException e) {
                 throw new RuntimeException("Error closing the connection: " + e, e);
-            }
-        }
-
-        @VisibleForTesting
-        public boolean isClosed() {
-            try {
-                return conn.isClosed();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
         }
     }
