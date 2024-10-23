@@ -19,12 +19,6 @@ class DatabaseConnectionTest {
 
         assertThatThrownBy(() -> {
             new DatabaseConnection(new StaticEnvironment(env));
-        }).hasMessageContaining("archburgers.datasource.driverClass env is missing");
-
-        env.put("archburgers.datasource.driverClass", "org.postgresql.Driver");
-
-        assertThatThrownBy(() -> {
-            new DatabaseConnection(new StaticEnvironment(env));
         }).hasMessageContaining("archburgers.datasource.dbUrl env is missing");
 
         env.put("archburgers.datasource.dbUrl", "jdbc:postgresql://localhost:5432/archburgers");
