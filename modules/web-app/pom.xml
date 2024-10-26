@@ -29,12 +29,12 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>svc-catalogo-usecases</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>svc-catalogo-gateways</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
@@ -59,12 +59,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.5.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.3.2</version>
         </dependency>
 
         <dependency>
@@ -120,7 +114,6 @@
                     <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,address=8008,suspend=n</jvmArguments>
 
                     <environmentVariables>
-                        <archburgers.datasource.driverClass>org.postgresql.Driver</archburgers.datasource.driverClass>
                         <archburgers.datasource.dbUrl>jdbc:postgresql://localhost/archburgers_svc_catalogo?autoReconnect=true</archburgers.datasource.dbUrl>
                         <archburgers.datasource.dbUser>burger_user_catalogo</archburgers.datasource.dbUser>
                         <archburgers.datasource.dbPass>burgerYeah</archburgers.datasource.dbPass>

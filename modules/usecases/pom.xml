@@ -20,7 +20,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>svc-catalogo-entities</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 </project>

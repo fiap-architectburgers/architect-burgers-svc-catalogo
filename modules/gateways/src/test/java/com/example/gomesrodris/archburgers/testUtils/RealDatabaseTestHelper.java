@@ -15,8 +15,7 @@ public class RealDatabaseTestHelper {
     public void beforeAll() throws Exception {
         postgres.start();
 
-        try (DatabaseMigration migration = new DatabaseMigration(postgres.getDriverClassName(),
-                postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())) {
+        try (DatabaseMigration migration = new DatabaseMigration(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())) {
             migration.runMigrations();
         }
     }
@@ -27,7 +26,6 @@ public class RealDatabaseTestHelper {
 
     public DatabaseConnection getConnectionPool() {
         var env = new StaticEnvironment(Map.of(
-                "archburgers.datasource.driverClass", postgres.getDriverClassName(),
                 "archburgers.datasource.dbUrl", postgres.getJdbcUrl(),
                 "archburgers.datasource.dbUser", postgres.getUsername(),
                 "archburgers.datasource.dbPass", postgres.getPassword()

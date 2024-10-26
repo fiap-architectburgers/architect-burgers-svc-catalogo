@@ -2,7 +2,6 @@ package com.example.gomesrodris.archburgers.adapters.datasource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.intellij.lang.annotations.Language;
-import org.jetbrains.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -16,22 +15,20 @@ import java.sql.SQLException;
 @Component
 @Scope("singleton")
 public class DatabaseConnection implements AutoCloseable {
+    private static final String DRIVER_CLASS = org.postgresql.Driver.class.getName();
+
     private final ComboPooledDataSource cpds;
 
-    public DatabaseConnection(String driverClass, String dbUrl, String dbUser, String dbPass) {
-        cpds = buildDataSource(driverClass, dbUrl, dbUser, dbPass);
+    public DatabaseConnection(String dbUrl, String dbUser, String dbPass) {
+        cpds = buildDataSource(dbUrl, dbUser, dbPass);
     }
 
     @Autowired
     public DatabaseConnection(Environment environment) {
-        String driverClassEnv = environment.getProperty("archburgers.datasource.driverClass");
         String dbUrlEnv = environment.getProperty("archburgers.datasource.dbUrl");
         String dbUserEnv = environment.getProperty("archburgers.datasource.dbUser");
         String dbPassEnv = environment.getProperty("archburgers.datasource.dbPass");
 
-        if (driverClassEnv == null) {
-            throw new IllegalStateException("archburgers.datasource.driverClass env is missing");
-        }
         if (dbUrlEnv == null) {
             throw new IllegalStateException("archburgers.datasource.dbUrl env is missing");
         }
@@ -42,7 +39,7 @@ public class DatabaseConnection implements AutoCloseable {
             throw new IllegalStateException("archburgers.datasource.dbPass env is missing");
         }
 
-        cpds = buildDataSource(driverClassEnv, dbUrlEnv, dbUserEnv, dbPassEnv);
+        cpds = buildDataSource(dbUrlEnv, dbUserEnv, dbPassEnv);
     }
 
     public ConnectionInstance getConnection() {
@@ -61,10 +58,10 @@ public class DatabaseConnection implements AutoCloseable {
         return cpds.getConnection();
     }
 
-    private ComboPooledDataSource buildDataSource(String driverClass, String dbUrl, String dbUser, String dbPass) {
+    private ComboPooledDataSource buildDataSource(String dbUrl, String dbUser, String dbPass) {
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {
-            cpds.setDriverClass(driverClass);
+            cpds.setDriverClass(DRIVER_CLASS);
         } catch (PropertyVetoException e) {
             throw new RuntimeException(e);
         }

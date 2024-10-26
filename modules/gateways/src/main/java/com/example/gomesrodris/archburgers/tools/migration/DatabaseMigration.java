@@ -38,8 +38,8 @@ public class DatabaseMigration implements AutoCloseable {
         this.isPoolOwner = false;
     }
 
-    public DatabaseMigration(String driverClass, String dbUrl, String dbUser, String dbPass) {
-        this.databaseConnection = new DatabaseConnection(driverClass, dbUrl, dbUser, dbPass);
+    public DatabaseMigration(String dbUrl, String dbUser, String dbPass) {
+        this.databaseConnection = new DatabaseConnection(dbUrl, dbUser, dbPass);
         this.isPoolOwner = true;
     }
 

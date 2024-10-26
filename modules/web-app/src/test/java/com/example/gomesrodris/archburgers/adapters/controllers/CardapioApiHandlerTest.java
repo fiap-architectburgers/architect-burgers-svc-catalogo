@@ -2,11 +2,13 @@ package com.example.gomesrodris.archburgers.adapters.controllers;//import static
 
 import com.example.gomesrodris.archburgers.adapters.dto.ItemCardapioDto;
 import com.example.gomesrodris.archburgers.adapters.dto.ValorMonetarioDto;
+import com.example.gomesrodris.archburgers.adapters.testUtils.TestLocale;
 import com.example.gomesrodris.archburgers.controller.CardapioController;
 import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
 import com.example.gomesrodris.archburgers.domain.valueobjects.TipoItemCardapio;
 import com.example.gomesrodris.archburgers.domain.valueobjects.ValorMonetario;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +38,11 @@ class CardapioApiHandlerTest {
     private CardapioController cardapioController;
 
     private CardapioApiHandler cardapioApiHandler;
+
+    @BeforeAll
+    static void beforeAll() {
+        TestLocale.setDefault();
+    }
 
     @BeforeEach
     void setUp() {

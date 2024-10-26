@@ -21,6 +21,7 @@
         <module>modules/usecases</module>
         <module>modules/gateways</module>
 	<module>modules/web-app</module>
+	<module>modules/QA</module>
     </modules>
 
     <dependencies>
@@ -44,14 +45,14 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.10.2</version>
+            <version>5.11.3</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.11.0</version>
+            <version>5.14.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -113,6 +114,7 @@
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
@@ -240,5 +242,50 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <profiles>
+        <!--
+        O profile qa-tests é reservado para os testes de integração de QA, incluindo BDD.
+        Neste profile o pattern de detecção de testes é alterado, os testes normais
+        (unitários e de integração) não são executados, e não é repetida a validação de cobertura.
+        Apenas os cenários de teste de QA são acionados nesta fase do pipeline
+        -->
+        <profile>
+            <id>qa-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*QAUnit.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*QA.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
 
