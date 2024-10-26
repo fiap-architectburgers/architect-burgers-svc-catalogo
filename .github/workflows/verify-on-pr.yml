@@ -38,6 +38,7 @@ jobs:
         run: mvn -P qa-tests verify
 
       - name: Upload coverage reports
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
