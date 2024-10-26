@@ -34,5 +34,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Maven Verify
+      - name: Maven Verify (QA Tests profile)
         run: mvn -P qa-tests verify
