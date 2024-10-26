@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.fiap-architect-burgers</groupId>
+        <artifactId>svc-catalogo-parent</artifactId>
+        <version>${projectVersion}</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>svc-catalogo-QA-tools</artifactId>
+    <version>${projectVersion}</version>
+
+    <name>svc-catalogo-QA-tools</name>
+    <description>Architect Burger - Catalogo microservice QA Tools</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>svc-catalogo-webapi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>1.11.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.20.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.20.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.45.1</version>
+                <executions>
+                    <execution>
+                        <id>prepare-IT-database</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>postgres:16-alpine</name>
+                                    <alias>it-database</alias>
+                                    <run>
+                                        <env>
+                                            <POSTGRES_DB>svc_catalogo_it</POSTGRES_DB>
+                                            <POSTGRES_USER>pguser</POSTGRES_USER>
+                                            <POSTGRES_PASSWORD>ItDbItDb!</POSTGRES_PASSWORD>
+                                        </env>
+                                        <ports>
+                                            <port>55432:5432</port>
+                                        </ports>
+                                        <wait>
+                                            <log>.*database system is ready to accept connections.*</log>
+                                            <time>20000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>remove-IT-database</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <mainClass>com.example.gomesrodris.archburgers.ArchitectBurgersApiApplication</mainClass>
+
+                            <environmentVariables>
+                                <archburgers.datasource.dbUrl>jdbc:postgresql://localhost:55432/svc_catalogo_it?autoReconnect=true</archburgers.datasource.dbUrl>
+                                <archburgers.datasource.dbUser>pguser</archburgers.datasource.dbUser>
+                                <archburgers.datasource.dbPass>ItDbItDb!</archburgers.datasource.dbPass>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>post-integration-test</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
