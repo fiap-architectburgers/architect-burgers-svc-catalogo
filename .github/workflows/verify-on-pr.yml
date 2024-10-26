@@ -36,3 +36,10 @@ jobs:
           cache: maven
       - name: Maven Verify (QA Tests profile)
         run: mvn -P qa-tests verify
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: "modules/*/target/site/jacoco-merged-test-coverage-report/*"
+          retention-days: 2
