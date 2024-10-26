@@ -1,0 +1,37 @@
+name: verify-project-on-pull-request
+run-name: Verifying on PR - ${{github.event.pull_request.title}}
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  mvn-verify-dev-tests-and-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Maven Verify
+        run: mvn verify
+
+  mvn-verify-qa-tests-and-bdd:
+    needs: mvn-verify-dev-tests-and-integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Maven Verify
+        run: mvn -P qa-tests verify
