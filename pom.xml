@@ -140,8 +140,8 @@
                 <configuration>
                     <excludes>
                         <!-- Exclude Spring configuration class from coverage, as the unit test does not apply to them -->
-                        <exclude>com/example/gomesrodris/archburgers/ArchitectBurgersApiApplication.*</exclude>
-                        <exclude>com/example/gomesrodris/archburgers/di/DomainServiceBeans.*</exclude>
+                        <exclude>com/example/fiap/archburgers/ArchitectBurgersApiApplication.*</exclude>
+                        <exclude>com/example/fiap/archburgers/di/DomainServiceBeans.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
