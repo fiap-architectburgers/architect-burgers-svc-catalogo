@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.domain.valueobjects;
+package com.example.fiap.archburgers.domain.valueobjects;
 
 public enum TipoItemCardapio {
     LANCHE("L"),

@@ -113,7 +113,7 @@
                         </goals>
                         <configuration>
                             <skip>false</skip>
-                            <mainClass>com.example.gomesrodris.archburgers.ArchitectBurgersApiApplication</mainClass>
+                            <mainClass>com.example.fiap.archburgers.ArchitectBurgersApiApplication</mainClass>
 
                             <environmentVariables>
                                 <archburgers.datasource.dbUrl>jdbc:postgresql://localhost:55432/svc_catalogo_it?autoReconnect=true</archburgers.datasource.dbUrl>

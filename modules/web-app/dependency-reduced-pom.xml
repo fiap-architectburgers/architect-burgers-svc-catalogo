@@ -17,7 +17,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <skip>false</skip>
-          <mainClass>com.example.gomesrodris.archburgers.ArchitectBurgersApiApplication</mainClass>
+          <mainClass>com.example.fiap.archburgers.ArchitectBurgersApiApplication</mainClass>
           <environmentVariables>
             <archburgers.datasource.dbUrl>jdbc:postgresql://localhost/archburgers?autoReconnect=true</archburgers.datasource.dbUrl>
             <archburgers.datasource.dbUser>live</archburgers.datasource.dbUser>
@@ -31,7 +31,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.example.gomesrodris.archburgers.ArchitectBurgersApiApplication</mainClass>
+              <mainClass>com.example.fiap.archburgers.ArchitectBurgersApiApplication</mainClass>
             </manifest>
           </archive>
         </configuration>

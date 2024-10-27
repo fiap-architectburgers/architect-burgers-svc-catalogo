@@ -1,9 +1,9 @@
-package com.example.gomesrodris.archburgers.adapters.dto;
+package com.example.fiap.archburgers.adapters.dto;
 
-import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
-import com.example.gomesrodris.archburgers.domain.utils.StringUtils;
-import com.example.gomesrodris.archburgers.domain.valueobjects.TipoItemCardapio;
-import com.example.gomesrodris.archburgers.domain.valueobjects.ValorMonetario;
+import com.example.fiap.archburgers.domain.entities.ItemCardapio;
+import com.example.fiap.archburgers.domain.utils.StringUtils;
+import com.example.fiap.archburgers.domain.valueobjects.TipoItemCardapio;
+import com.example.fiap.archburgers.domain.valueobjects.ValorMonetario;
 import org.jetbrains.annotations.NotNull;
 
 public record ItemCardapioDto(

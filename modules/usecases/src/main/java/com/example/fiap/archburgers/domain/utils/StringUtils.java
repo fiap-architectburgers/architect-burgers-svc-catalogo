@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.domain.utils;
+package com.example.fiap.archburgers.domain.utils;
 
 public class StringUtils {
     public static boolean isEmpty(String string) {

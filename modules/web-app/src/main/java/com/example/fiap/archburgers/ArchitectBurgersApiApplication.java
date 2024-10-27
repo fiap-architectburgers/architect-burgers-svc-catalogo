@@ -1,6 +1,6 @@
-package com.example.gomesrodris.archburgers;
+package com.example.fiap.archburgers;
 
-import com.example.gomesrodris.archburgers.tools.migration.DatabaseMigration;
+import com.example.fiap.archburgers.tools.migration.DatabaseMigration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

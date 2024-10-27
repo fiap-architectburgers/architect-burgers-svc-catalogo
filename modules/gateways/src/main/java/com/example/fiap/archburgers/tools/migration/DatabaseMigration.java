@@ -1,6 +1,6 @@
-package com.example.gomesrodris.archburgers.tools.migration;
+package com.example.fiap.archburgers.tools.migration;
 
-import com.example.gomesrodris.archburgers.adapters.datasource.DatabaseConnection;
+import com.example.fiap.archburgers.adapters.datasource.DatabaseConnection;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;

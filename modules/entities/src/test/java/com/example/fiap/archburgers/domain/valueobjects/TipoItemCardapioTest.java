@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.domain.valueobjects;
+package com.example.fiap.archburgers.domain.valueobjects;
 
 import org.junit.jupiter.api.Test;
 

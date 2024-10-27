@@ -1,8 +1,8 @@
-package com.example.gomesrodris.archburgers.adapters.presenters;
+package com.example.fiap.archburgers.adapters.presenters;
 
-import com.example.gomesrodris.archburgers.adapters.dto.ItemCardapioDto;
-import com.example.gomesrodris.archburgers.adapters.dto.ValorMonetarioDto;
-import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
+import com.example.fiap.archburgers.adapters.dto.ItemCardapioDto;
+import com.example.fiap.archburgers.adapters.dto.ValorMonetarioDto;
+import com.example.fiap.archburgers.domain.entities.ItemCardapio;
 
 public class ItemCardapioPresenter {
     private ItemCardapioPresenter() {

@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.testUtils;
+package com.example.fiap.archburgers.testUtils;
 
 import org.springframework.core.env.AbstractEnvironment;
 

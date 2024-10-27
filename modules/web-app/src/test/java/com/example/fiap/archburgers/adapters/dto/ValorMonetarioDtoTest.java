@@ -1,11 +1,9 @@
-package com.example.gomesrodris.archburgers.adapters.dto;
+package com.example.fiap.archburgers.adapters.dto;
 
-import com.example.gomesrodris.archburgers.adapters.testUtils.TestLocale;
-import com.example.gomesrodris.archburgers.domain.valueobjects.ValorMonetario;
+import com.example.fiap.archburgers.adapters.testUtils.TestLocale;
+import com.example.fiap.archburgers.domain.valueobjects.ValorMonetario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

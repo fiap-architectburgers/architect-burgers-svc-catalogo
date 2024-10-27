@@ -1,8 +1,7 @@
-package com.example.gomesrodris.archburgers.adapters.datasource;//import static org.junit.jupiter.api.Assertions.*;
+package com.example.fiap.archburgers.adapters.datasource;//import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.gomesrodris.archburgers.testUtils.StaticEnvironment;
+import com.example.fiap.archburgers.testUtils.StaticEnvironment;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;

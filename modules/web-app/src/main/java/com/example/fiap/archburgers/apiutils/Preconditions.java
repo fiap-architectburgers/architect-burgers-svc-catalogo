@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.apiutils;
+package com.example.fiap.archburgers.apiutils;
 
 public class Preconditions {
     private Preconditions() {

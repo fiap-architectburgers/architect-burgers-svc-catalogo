@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.adapters.testUtils;
+package com.example.fiap.archburgers.adapters.testUtils;
 
 import java.util.Locale;
 import java.util.TimeZone;

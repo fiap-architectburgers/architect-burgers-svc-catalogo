@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.integrationSuites;
+package com.example.fiap.archburgers.integrationSuites;
 
 import org.junit.platform.suite.api.*;
 

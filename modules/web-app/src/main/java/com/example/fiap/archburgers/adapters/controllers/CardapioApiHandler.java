@@ -1,14 +1,14 @@
-package com.example.gomesrodris.archburgers.adapters.controllers;
+package com.example.fiap.archburgers.adapters.controllers;
 
-import com.example.gomesrodris.archburgers.adapters.dto.GenericOperationResponse;
-import com.example.gomesrodris.archburgers.adapters.dto.ItemCardapioDto;
-import com.example.gomesrodris.archburgers.adapters.presenters.ItemCardapioPresenter;
-import com.example.gomesrodris.archburgers.apiutils.Preconditions;
-import com.example.gomesrodris.archburgers.apiutils.WebUtils;
-import com.example.gomesrodris.archburgers.controller.CardapioController;
-import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
-import com.example.gomesrodris.archburgers.domain.utils.StringUtils;
-import com.example.gomesrodris.archburgers.domain.valueobjects.TipoItemCardapio;
+import com.example.fiap.archburgers.adapters.dto.GenericOperationResponse;
+import com.example.fiap.archburgers.adapters.dto.ItemCardapioDto;
+import com.example.fiap.archburgers.adapters.presenters.ItemCardapioPresenter;
+import com.example.fiap.archburgers.apiutils.Preconditions;
+import com.example.fiap.archburgers.apiutils.WebUtils;
+import com.example.fiap.archburgers.controller.CardapioController;
+import com.example.fiap.archburgers.domain.entities.ItemCardapio;
+import com.example.fiap.archburgers.domain.utils.StringUtils;
+import com.example.fiap.archburgers.domain.valueobjects.TipoItemCardapio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;

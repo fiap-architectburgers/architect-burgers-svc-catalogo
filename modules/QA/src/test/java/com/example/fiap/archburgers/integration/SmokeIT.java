@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.integration;
+package com.example.fiap.archburgers.integration;
 
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;

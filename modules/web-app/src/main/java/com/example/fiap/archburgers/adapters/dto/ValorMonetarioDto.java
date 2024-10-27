@@ -1,6 +1,6 @@
-package com.example.gomesrodris.archburgers.adapters.dto;
+package com.example.fiap.archburgers.adapters.dto;
 
-import com.example.gomesrodris.archburgers.domain.valueobjects.ValorMonetario;
+import com.example.fiap.archburgers.domain.valueobjects.ValorMonetario;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;

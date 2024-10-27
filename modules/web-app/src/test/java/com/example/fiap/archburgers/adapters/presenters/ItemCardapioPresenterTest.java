@@ -1,11 +1,11 @@
-package com.example.gomesrodris.archburgers.adapters.presenters;//import static org.junit.jupiter.api.Assertions.*;
+package com.example.fiap.archburgers.adapters.presenters;//import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.gomesrodris.archburgers.adapters.dto.ItemCardapioDto;
-import com.example.gomesrodris.archburgers.adapters.dto.ValorMonetarioDto;
-import com.example.gomesrodris.archburgers.adapters.testUtils.TestLocale;
-import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
-import com.example.gomesrodris.archburgers.domain.valueobjects.TipoItemCardapio;
-import com.example.gomesrodris.archburgers.domain.valueobjects.ValorMonetario;
+import com.example.fiap.archburgers.adapters.dto.ItemCardapioDto;
+import com.example.fiap.archburgers.adapters.dto.ValorMonetarioDto;
+import com.example.fiap.archburgers.adapters.testUtils.TestLocale;
+import com.example.fiap.archburgers.domain.entities.ItemCardapio;
+import com.example.fiap.archburgers.domain.valueobjects.TipoItemCardapio;
+import com.example.fiap.archburgers.domain.valueobjects.ValorMonetario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
-package com.example.gomesrodris.archburgers.di;
+package com.example.fiap.archburgers.di;
 
-import com.example.gomesrodris.archburgers.controller.CardapioController;
-import com.example.gomesrodris.archburgers.domain.datagateway.ItemCardapioGateway;
-import com.example.gomesrodris.archburgers.domain.usecases.CardapioUseCases;
+import com.example.fiap.archburgers.controller.CardapioController;
+import com.example.fiap.archburgers.domain.datagateway.ItemCardapioGateway;
+import com.example.fiap.archburgers.domain.usecases.CardapioUseCases;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

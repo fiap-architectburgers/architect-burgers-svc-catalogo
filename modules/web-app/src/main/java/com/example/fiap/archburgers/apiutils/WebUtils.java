@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.apiutils;
+package com.example.fiap.archburgers.apiutils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

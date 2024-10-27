@@ -1,8 +1,8 @@
-package com.example.gomesrodris.archburgers.controller;
+package com.example.fiap.archburgers.controller;
 
-import com.example.gomesrodris.archburgers.domain.entities.ItemCardapio;
-import com.example.gomesrodris.archburgers.domain.usecases.CardapioUseCases;
-import com.example.gomesrodris.archburgers.domain.valueobjects.TipoItemCardapio;
+import com.example.fiap.archburgers.domain.entities.ItemCardapio;
+import com.example.fiap.archburgers.domain.usecases.CardapioUseCases;
+import com.example.fiap.archburgers.domain.valueobjects.TipoItemCardapio;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

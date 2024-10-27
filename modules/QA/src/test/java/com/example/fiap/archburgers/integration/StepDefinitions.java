@@ -1,4 +1,4 @@
-package com.example.gomesrodris.archburgers.integration;
+package com.example.fiap.archburgers.integration;
 
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
