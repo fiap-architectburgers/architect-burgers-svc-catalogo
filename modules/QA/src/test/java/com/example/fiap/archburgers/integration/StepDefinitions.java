@@ -18,7 +18,7 @@ public class StepDefinitions {
 
     @Dado("que um cliente irá obter os itens do cardápio")
     public void que_um_cliente_ira_obter_os_itens_do_cardapio() {
-        RestAssured.baseURI = "http://localhost:8090";
+        RestAssured.baseURI = "http://localhost:8092";
         RestAssured.basePath = "/cardapio";
     }
 

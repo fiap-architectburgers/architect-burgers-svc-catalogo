@@ -13,7 +13,7 @@ public class SmokeIT {
     @Test
     public void getAllItens() {
         RestAssured.when().
-                get("http://localhost:8090/cardapio").
+                get("http://localhost:8092/cardapio").
                 then().
                 statusCode(200).
                 body("", Matchers.isA(List.class),
