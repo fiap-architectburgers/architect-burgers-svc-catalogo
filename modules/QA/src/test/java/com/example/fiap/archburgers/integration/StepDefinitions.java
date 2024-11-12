@@ -38,6 +38,6 @@ public class StepDefinitions {
     public void a_lista_retornada_possui_ao_menos_um_item_do_tipo(String tipo) {
         response.then().body(
                 "", isA(List.class),
-                "", hasItem(hasEntry("tipo", "ACOMPANHAMENTO")));
+                "", hasItem(hasEntry("tipo", tipo)));
     }
 }
