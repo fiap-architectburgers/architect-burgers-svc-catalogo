@@ -111,7 +111,7 @@
                     <skip>false</skip>
                     <mainClass>com.example.fiap.archburgers.ArchitectBurgersApiApplication</mainClass>
 
-                    <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,address=8008,suspend=n</jvmArguments>
+                    <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,address=8010,suspend=n</jvmArguments>
 
                     <environmentVariables>
                         <archburgers.datasource.dbUrl>jdbc:postgresql://localhost/archburgers_svc_catalogo?autoReconnect=true</archburgers.datasource.dbUrl>
