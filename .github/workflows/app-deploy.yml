@@ -1,10 +1,10 @@
 name: app-deploy
 run-name: Package and deploy application
-on: push
-# TODO: Temporary during test - do only when push on main
-#  push:
-#    branches:
-#      - main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
 
 jobs:
   mvn-install-with-libs:
