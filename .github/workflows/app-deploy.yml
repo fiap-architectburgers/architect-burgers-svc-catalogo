@@ -80,9 +80,9 @@ jobs:
         id: get-db-url
         run: ./deploy/utils/get-database-url.sh ${{vars.DB_INSTANCE_IDENTIFIER}} >> $GITHUB_OUTPUT
       - name: Create application database
-        run: >
-          ./deploy/utils/create-app-database.sh "${{steps.get-db-url.outputs.DB_URL}}" "${{vars.MAIN_DATABASE_NAME}}"
-             "${{vars.DATABASE_USER}}" "${{secrets.DATABASE_PASSWORD}}"
+        run: |
+          ./deploy/utils/create-app-database.sh "${{steps.get-db-url.outputs.DB_URL}}" "${{vars.MAIN_DATABASE_NAME}}" \
+             "${{vars.DATABASE_ADM_USER}}" "${{secrets.DATABASE_PASSWORD}}" \
              "${{vars.APP_DATABASE_NAME}}" "${{vars.DATABASE_APP_USER}}" "${{secrets.DATABASE_APP_PASSWORD}}"
 
   prepare-k8s-aws-dependencies:
