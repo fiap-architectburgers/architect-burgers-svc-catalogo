@@ -4,7 +4,7 @@
 #
 # (for reference, the commands below run at the repo root will prepare the dependencies)
 # mvn install dependency:copy-dependencies
-# mkdir ./docker/temp_libs && cp ./modules/web-app/target/architect-burgers-webapi-*.jar ./docker/temp_libs/ && cp ./modules/web-app/target/lib/* ./docker/temp_libs/
+# mkdir ./docker/temp_libs && cp ./modules/web-app/target/*webapi-*.jar ./docker/temp_libs/ && cp ./modules/web-app/target/lib/* ./docker/temp_libs/
 #
 #
 FROM eclipse-temurin:21-jdk-alpine
