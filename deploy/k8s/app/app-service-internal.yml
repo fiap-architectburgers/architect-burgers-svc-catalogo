@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: archburgers-svc-catalogo-internal
+spec:
+  selector:
+    app: archburgers-svc-catalogo
+  ports:
+    - protocol: TCP
+      port: 8092
+      targetPort: 8092
