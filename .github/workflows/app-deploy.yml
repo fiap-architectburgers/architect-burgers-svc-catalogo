@@ -160,6 +160,9 @@ jobs:
       - name: Create database info ConfigMap
         run: kubectl apply -f kube-db-configs.yml
 
+      - name: Create App Internal service
+        run: kubectl apply -f deploy/k8s/app/app-service-internal.yml
+
       - name: Create App LoadBalancer service
         run: kubectl apply -f deploy/k8s/app/app-service-loadbalancer.yml
 
