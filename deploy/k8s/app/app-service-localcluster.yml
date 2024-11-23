@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: archburgers-svc-catalogo-svc
+  name: archburgers-svc-catalogo-service
 spec:
   type: NodePort
   selector:
